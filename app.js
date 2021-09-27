@@ -2,7 +2,7 @@ var btnTranslate = document.querySelector("#button-translate");
 var textInput = document.querySelector("#textarea-input");
 var outputArea = document.querySelector("#area-output");
 var ENDPOINT_URL = "https://api.funtranslations.com/translate/minion.json";
-//TestURL: "https://lessonfourapi.tanaypratap.repl.co/translate/yoda.json";
+
 
 btnTranslate.addEventListener("click", translateText);
  
