@@ -1,35 +1,45 @@
-var btnTranslate = document.querySelector("#btn-translate");
-var txtInput = document.querySelector("#txt-input");
- var outputDiv = document.querySelector("#output");
+var btnTranslate = document.querySelector("#button-translate");
+var textInput = document.querySelector("#textarea-input");
+var outputArea = document.querySelector("#area-output");
+var ENDPOINT_URL = "https://api.funtranslations.com/translate/minion.json";
+//TestURL: "https://lessonfourapi.tanaypratap.repl.co/translate/yoda.json";
 
- var server url =https://api.funtranslations.com/translate/minion.json"
-
- function get translation url (input) {
-     return server url + "?" +"text" = + input
- }
-
- function console handler (Error) {
-
-    console.log ("error occured", Error);
+btnTranslate.addEventListener("click", translateText);
  
- alert ("something wrong with server! "try again after sometime" )
+function translateText() {
+  if (textInput.value) {
+    toggleTranslateButton();
+    var requestUrl = getRequestUrl();
+    console.log(requestUrl);
+    fetch(requestUrl)
+      .then(convertToJson)
+      .then(displayTranslation)
+      .catch(displayError);
+  }
+}
 
- }
+function toggleTranslateButton() {
+  btnTranslate.disabled = !btnTranslate.disabled;
+}
+
+function getRequestUrl() {
+  return ENDPOINT_URL + "?text=" + encodeURI(textInput.value);
+}
+
+function convertToJson(serverReturnData) {
+  return serverReturnData.json();
+}
+
+function displayTranslation(jsonData) {
+  var translatedText = jsonData.contents.translated;
+  outputArea.innerHTML = translatedText;
+  toggleTranslateButton();
+}
+
+function displayError(error) {
+  toggleTranslateButton();
+  alert(
+    "Sorry! Unable to process your request currently. \nPlease try again later."
+  );
+}
  
-
-// btnTranslate.addEventListener("click",function clickEventHandler() {
-//     console.log("clicked!")
-// })
-function clickhandler() {
- var input text =  txtInput.value;
-
- fetch (get translation URL (input text)
- .then (Response =>response .json)};
- .then (json => {
-     var translated text = json.contents.translated;
-     outputDiv.innertext =translated text;
-    
- })
- .catch (error handler)};
-
-    btnTranslate.addEventListener("click", clickhandler)
